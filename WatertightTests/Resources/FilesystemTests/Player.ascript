@@ -1,0 +1,9 @@
+﻿{
+  "$NativeClass": "InfiniDungeon2D.TestWorld.Player",
+  "$Components": [
+    {
+      "$NativeClass": "Watertight.SFML.Components.SFMLCameraComponent"
+    }
+  ]
+
+}

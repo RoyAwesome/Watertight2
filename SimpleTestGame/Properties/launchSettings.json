@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "SimpleTestGame": {
+      "commandName": "Project"
+    }
+  }
+}

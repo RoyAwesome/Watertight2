@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Watertight.Rendering.VeldridRendering</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Shaders\DefaultShader.glsl.frag" />
+    <None Remove="Resources\Shaders\DefaultShader.glsl.vert" />
+    <None Remove="Resources\Shaders\DefaultShaderUntextured.glsl.frag" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shaders\DefaultShaderUntextured.glsl.frag" />
+    <EmbeddedResource Include="Resources\Shaders\DefaultShader.glsl.frag" />
+    <EmbeddedResource Include="Resources\Shaders\DefaultShader.glsl.vert" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
+    <PackageReference Include="System.Security.Permissions" Version="5.0.0-preview.2.20160.6" />
+    <PackageReference Include="System.Threading.AccessControl" Version="5.0.0-preview.2.20160.6" />
+    <PackageReference Include="Veldrid" Version="4.7.0" />
+    <PackageReference Include="Veldrid.SPIRV" Version="1.0.13" />
+    <PackageReference Include="Veldrid.StartupUtilities" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Watertight2\Watertight.csproj" />
+  </ItemGroup>
+
+</Project>

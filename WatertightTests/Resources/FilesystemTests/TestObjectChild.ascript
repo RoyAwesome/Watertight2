@@ -1,0 +1,10 @@
+﻿{
+  "$ParentScript": "ascript:Scripts/Actors/TestObject.ascript",
+  "$Components": [
+    {
+      "$ObjectName": "SpriteComponent_0",
+      "Texture": "sprite:Textures/TerrainTiles/DirtTile.png"
+    }
+  ],
+  "TestString": "This is a child script!"
+}

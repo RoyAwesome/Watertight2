@@ -1,0 +1,10 @@
+﻿{
+  "$NativeClass": "InfiniDungeon2D.TestWorld.TestActor",
+  "$Components": [
+    {
+      "$NativeClass": "Watertight.SFML.Components.SpriteComponent",
+      "Texture": "sprite:Textures/pikaoh.png"
+    }
+  ],
+  "Texture": "sprite:Textures/pikaoh.png"
+}

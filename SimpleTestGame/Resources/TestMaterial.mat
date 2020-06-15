@@ -1,0 +1,4 @@
+﻿{
+	"$VertexShader" : "shader:vert.spv",
+	"$FragmentShader" : "shader:frag.spv"
+}

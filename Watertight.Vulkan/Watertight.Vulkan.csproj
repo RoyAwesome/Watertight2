@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <RootNamespace>Watertight.VulkanRenderer</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Shaders\DefaultShader.frag.spv" />
+    <None Remove="Resources\Shaders\DefaultShader.vert.spv" />
+    <None Remove="Resources\Shaders\Empty.frag.spv" />
+    <None Remove="Resources\Shaders\Empty.vert.spv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shaders\DefaultShader.frag.spv" />
+    <EmbeddedResource Include="Resources\Shaders\DefaultShader.vert.spv" />
+    <EmbeddedResource Include="Resources\Shaders\Empty.frag.spv" />
+    <EmbeddedResource Include="Resources\Shaders\Empty.vert.spv" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-beta0007" />
+    <PackageReference Include="VulkanSharp" Version="0.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dependencies\SDL2-CS\SDL2-CS.Core.csproj" />
+    <ProjectReference Include="..\Watertight2\Watertight.csproj" />
+  </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="$(ProjectDir)\Resources\CompileShaders.bat" />
+  </Target>
+
+</Project>
