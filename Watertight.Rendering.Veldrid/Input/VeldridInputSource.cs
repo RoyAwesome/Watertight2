@@ -16,9 +16,12 @@ namespace Watertight.Rendering.VeldridRendering.Input
         
         internal void OnWindowKeyEvent(Veldrid.KeyEvent obj)
         {
-           
+            if(obj.Repeat)
+            {
+                return;
+            }
 
-            if(obj.Down)
+            if (obj.Down)
             {
                 
                 OnPressedEvent?.Invoke(obj.Key.Convert(), PlayerFlags.ANY_PLAYER);
@@ -31,6 +34,7 @@ namespace Watertight.Rendering.VeldridRendering.Input
         }
         internal void OnWindowMouseEvent(Veldrid.MouseEvent obj)
         {
+           
             if (obj.Down)
             {
                 OnPressedEvent?.Invoke(obj.MouseButton.Convert(), PlayerFlags.ANY_PLAYER);

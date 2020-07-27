@@ -43,6 +43,7 @@ namespace Watertight.Rendering.VeldridRendering
 
                 Transform tform = (Owner as ITransformable).GetTransform_WorldSpace();
                 tform.Location *= 0.5f;
+                tform.Location *= -1;
 
                 return tform.ToTransformMatrix();
             }
@@ -56,12 +57,7 @@ namespace Watertight.Rendering.VeldridRendering
         {
             this.Owner = Owner;
         }
-
-        public byte[] ViewProjection()
-        {
-            Transform View = (Owner as ITransformable)?.GetTransform_WorldSpace() ?? Transform.Identity;
-            return (View.ToTransformMatrix() * Projection).ToBytes();
-        }
+               
 
         Veldrid.DeviceBuffer ViewProjectionBuffer;
         public Veldrid.ResourceSet ProjectionViewResourceSet;

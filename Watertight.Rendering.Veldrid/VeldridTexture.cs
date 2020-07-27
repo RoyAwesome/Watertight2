@@ -64,9 +64,14 @@ namespace Watertight.Rendering.VeldridRendering
                 1, 1,
                 Veldrid.PixelFormat.R8_G8_B8_A8_UNorm, Veldrid.TextureUsage.Staging, Veldrid.TextureType.Texture2D));
 
-            byte[] rgbaBytes = MemoryMarshal.AsBytes(InternalTexture.GetPixelSpan()).ToArray();
+            Span<Rgba32> Pixels;
+            InternalTexture.TryGetSinglePixelSpan(out Pixels);
 
-            Renderer.GraphicsDevice.UpdateTexture(StagingTexture, rgbaBytes,
+            Span<byte> Bytes = MemoryMarshal.AsBytes(Pixels);
+
+         
+            //TODO: Fix this copy (Bytes.ToArray()) and use the memory directly.  UpdateTexture takes an intptr so get that
+            Renderer.GraphicsDevice.UpdateTexture(StagingTexture, Bytes.ToArray(),
                 0, 0, 0,
                 tx, ty, 1,
                 0, 0);
