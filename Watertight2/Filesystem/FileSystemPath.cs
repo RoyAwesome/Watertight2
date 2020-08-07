@@ -57,7 +57,7 @@ namespace Watertight.Filesystem
 
     internal class FileSystemSearchPath : FileSystemPathFinder
     {
-        protected string Directory
+        internal string Directory
         {
             get;
             set;

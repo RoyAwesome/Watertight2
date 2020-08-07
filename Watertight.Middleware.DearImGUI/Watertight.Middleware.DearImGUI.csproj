@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+      <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Modules\ImGUI\</OutDir>    
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Watertight2\Watertight.csproj" />
+    <ProjectReference Include="..\Watertight2\Watertight.csproj">
+       <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

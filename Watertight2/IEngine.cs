@@ -21,12 +21,11 @@ namespace Watertight
         float MaxFPS { get; set; }
         IEnumerable<IMiddleware> Middlewares { get; }
         string Name { get; }
-        IEnumerable<ResourcePtr> PreloadResources { get; }
         Renderer Renderer { get; }
         bool Running { get; set; }
         string Version { get; }
 
-        void Init();
+        void Init(string[] Args);
         World LoadWorld(World WorldToLoad);
         World LoadWorld(WorldScript WorldScript);
         void OnInit();

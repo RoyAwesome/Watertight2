@@ -6,6 +6,7 @@ using System.IO;
 using System.Reflection;
 using Watertight.Tickable;
 using Watertight.Interfaces;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Watertight.Filesystem
 {
@@ -71,10 +72,11 @@ namespace Watertight.Filesystem
         public static readonly string GameResources = "Resources/";
         public static readonly string ModDirectory = "mods/";
         public static readonly string CacheDirectory = "cache/";
+        public static readonly string Modules = "modules/";
 
 
         static List<ResourceFactory> Factories;
-        static FileSystemPathFinder[] pathOrder;
+        static List<FileSystemPathFinder> pathOrder;
 
         static Dictionary<ResourcePtr, object> ResourceCache = new Dictionary<ResourcePtr, object>();
 
@@ -82,13 +84,23 @@ namespace Watertight.Filesystem
         
         static FileSystem()
         {
-            if (!Directory.Exists(ModDirectory)) Directory.CreateDirectory(ModDirectory);
-            if (!Directory.Exists(CacheDirectory)) Directory.CreateDirectory(CacheDirectory);
+            string[] ImportantDirs = new string[]
+            {
+                GameResources,
+                ModDirectory,
+                CacheDirectory,
+                Modules,
+            };
+
+            foreach(string ImportantDir in ImportantDirs)
+            {
+                if (!Directory.Exists(ImportantDir)) Directory.CreateDirectory(ImportantDir);
+            }
 
             Factories = new List<ResourceFactory>();
             
 
-            pathOrder = new FileSystemPathFinder[] {                
+            pathOrder = new List<FileSystemPathFinder>() {                
                 new FileSystemSearchPath(ModDirectory),
                 new FileSystemSearchPath(GameResources),
             };
@@ -252,10 +264,31 @@ namespace Watertight.Filesystem
             return null;
         }
 
+        internal static void AddFilesystemPath(string Path)
+        {
+            if(Directory.Exists(Path))
+            {  
+                if (pathOrder.FirstOrDefault((x) =>
+                {
+                    if (x is FileSystemSearchPath)
+                    {
+                        return (x as FileSystemSearchPath).Directory == Path;
+                    }
+
+                    return false;
+                }) == null)
+                {
+                    pathOrder.Add(new FileSystemSearchPath(Path));
+                    Logger.Info("Added New Filesystem Path: {0}", Path);
+                }
+               
+            }            
+        }
+
         #region Resource Loading
         internal static bool ResourceExists(ResourcePtr Ptr)
         {
-            for (int i = 0; i < pathOrder.Length; i++)
+            for (int i = 0; i < pathOrder.Count; i++)
             {
                 if (pathOrder[i].ExistsInPath(Ptr))
                 {
@@ -268,7 +301,7 @@ namespace Watertight.Filesystem
       
         internal static Stream GetFileStream(ResourcePtr Ptr)
         {
-            for (int i = 0; i < pathOrder.Length; i++)
+            for (int i = 0; i < pathOrder.Count; i++)
             {
                 if (pathOrder[i].ExistsInPath(Ptr))
                 {

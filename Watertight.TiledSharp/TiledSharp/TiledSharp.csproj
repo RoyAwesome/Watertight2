@@ -2,10 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Modules\TiledSharp\</OutDir>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Watertight2\Watertight.csproj" />
+    <ProjectReference Include="..\..\Watertight2\Watertight.csproj">
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

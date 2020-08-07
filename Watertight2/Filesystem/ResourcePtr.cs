@@ -65,7 +65,7 @@ namespace Watertight.Filesystem
 
         public T Get<T>() where T : class
         {
-            return LoadedResource as T;
+            return (T)LoadedResource;
         }
 
         public bool Loaded

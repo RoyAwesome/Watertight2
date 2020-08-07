@@ -112,6 +112,7 @@ namespace Watertight.Middleware.DearImGUI
 
             io.MousePos = new Vector2(InputProcessor.PollAxis(Key.MouseX), InputProcessor.PollAxis(Key.MouseY));
 
+            
         }
 
         public void PreRender(Renderer renderer)
