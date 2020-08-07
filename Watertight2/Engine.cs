@@ -11,6 +11,8 @@ using System.Reflection;
 using Watertight.Middleware;
 using Watertight.Modules;
 using Watertight.Game;
+using NLog.Targets;
+using NLog;
 
 namespace Watertight
 {
@@ -84,6 +86,12 @@ namespace Watertight
             private set;
         }
 
+        public string[] StartupArgs
+        {
+            get;
+            private set;
+        }
+
         static NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();
 
 
@@ -148,7 +156,7 @@ namespace Watertight
         public void Init(string[] Args)
         {
             //TODO: Configure Engine from command line
-
+            StartupArgs = Args;
 
             //Make sure all of our dependent assemblies are loaded. 
             foreach (Assembly assembly in AppDomain.CurrentDomain.GetAssemblies())
@@ -339,6 +347,25 @@ namespace Watertight
             instance.Initialize(this);
 
         }
+               
+        public event RecieveLogMessage OnLogMessage;
+
+        internal class WatertightLogOutput : TargetWithLayout
+        {
+            protected override void Write(LogEventInfo logEvent)
+            {
+                string msg = this.Layout.Render(logEvent);
+                if ( (IEngine.Instance as Engine).OnLogMessage != null)
+                {
+                    (IEngine.Instance as Engine).OnLogMessage.Invoke(msg);
+                }
+            }
+        }
+
+        public void BindLogOutput(RecieveLogMessage LogMessageHandler)
+        {
+            OnLogMessage += LogMessageHandler;
+        }
 
         private static void ConfigureLogger()
         {
@@ -350,7 +377,10 @@ namespace Watertight
                 //Layout = "${message}"
             };
 
+            var LogWTConsole = new WatertightLogOutput();
+
             Config.AddRuleForAllLevels(LogConsole);
+            Config.AddRuleForAllLevels(LogWTConsole);
             //  Config.AddRuleForAllLevels(FileTarget);
 
             NLog.LogManager.Configuration = Config;

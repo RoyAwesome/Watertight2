@@ -23,11 +23,11 @@ namespace Watertight.Middleware.DearImGUI
 
         const float OrthoOffset = 0.0f;
 
-
+        public static int ImGUI_FrameStartTick = TickFunction.InputPoll + 0x000F;
         TickFunction StartFrameTickFunc = new TickFunction
         {
             CanTick = true,
-            TickPriority = TickFunction.InputPoll + 0x000F,
+            TickPriority = ImGUI_FrameStartTick,
         };
 
         Dictionary<IntPtr, ITexture> _ImGUITextureMap = new Dictionary<IntPtr, ITexture>();
@@ -87,17 +87,17 @@ namespace Watertight.Middleware.DearImGUI
             UpdateInput();
 
             ImGui.NewFrame();
-            
+
             //Create a simple box
             {
                 ImGui.Text("Hello World");
 
                 ImGui.ShowDemoWindow();
-               
+
             }
-            
-        }    
-        
+
+        }
+
         private void UpdateInput()
         {
             var io = ImGui.GetIO();
@@ -121,8 +121,8 @@ namespace Watertight.Middleware.DearImGUI
         }
 
         public void Render(Renderer renderer)
-        {        
-
+        {
+            ImGui.EndFrame();
             RenderIMGui(renderer);
         }
                

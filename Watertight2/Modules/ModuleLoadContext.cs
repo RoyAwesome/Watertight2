@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyModel;
 using Microsoft.Extensions.DependencyModel.Resolution;
+using NLog.LayoutRenderers;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -39,7 +40,7 @@ namespace Watertight.Modules
 
         
         protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
-        {
+        {            
             string libPath = resolver.ResolveUnmanagedDllToPath(unmanagedDllName);
             if(libPath != null)
             {

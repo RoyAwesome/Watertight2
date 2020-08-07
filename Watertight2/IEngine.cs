@@ -7,6 +7,9 @@ using Watertight.Tickable;
 
 namespace Watertight
 {
+    public delegate void RecieveLogMessage(string message);
+
+
     public interface IEngine
     {
         public static IEngine Instance
@@ -33,5 +36,8 @@ namespace Watertight
         void Shutdown();
         void Tick(float DeltaTime);
         void UseMiddleware(SubclassOf<IMiddleware> MiddlewareType);
+
+        void BindLogOutput(RecieveLogMessage LogMessageHandler);
+
     }
 }

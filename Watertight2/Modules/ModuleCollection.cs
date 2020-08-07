@@ -193,7 +193,7 @@ namespace Watertight.Modules
 
         private void StartupModuleToPhase(LoadedModule module, StartupPhase phase)
         {
-            if (MostRecentStartup >= module.CurrentPhase)
+            if (MostRecentStartup <= module.CurrentPhase)
             {
                 return;
             }

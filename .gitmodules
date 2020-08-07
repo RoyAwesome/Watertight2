@@ -1,0 +1,4 @@
+[submodule "Watertight.Flow"]
+	path = Watertight.Flow
+	url = https://github.com/RoyAwesome/Flow.git
+	branch = master
