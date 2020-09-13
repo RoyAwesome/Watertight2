@@ -20,7 +20,7 @@ namespace Watertight.Middleware.DearImGUI
         {
            if(Phase == StartupPhase.Start)
             {
-                IEngine.Instance.UseMiddleware(typeof(ImGUIMiddleware));
+                //IEngine.Instance.UseMiddleware(typeof(ImGUIMiddleware));
             }
         }
     }

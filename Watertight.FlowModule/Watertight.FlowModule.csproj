@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <OutDir>$(SolutionDir)bin\$(Configuration)\$(TargetFramework)\Modules\Flow\</OutDir>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Watertight.Flow\Flow\Flow.csproj" />
+    <ProjectReference Include="..\Watertight2\Watertight.csproj">
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+
+</Project>
