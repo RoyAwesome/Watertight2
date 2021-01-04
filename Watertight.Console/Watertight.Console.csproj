@@ -6,9 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Watertight.Middleware.DearImGUI\Watertight.Middleware.DearImGUI.csproj">
-      <Private>False</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Watertight2\Watertight.csproj">
       <Private>False</Private>
     </ProjectReference>

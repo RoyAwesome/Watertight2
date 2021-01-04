@@ -17,17 +17,17 @@ namespace Watertight.Console
 
         public void Tick(float DeltaTime)
         {
-            
-            //ImGui.Begin("Console");
 
-            //ImGui.BeginChild("Scrolling");
-            //for(int i = 0; i < ConsoleMessages.Count; i++)
-            //{
-            //    ImGui.Text(ConsoleMessages[i]);
-            //}
-            //ImGui.EndChild();
+            ImGui.Begin("Console");
 
-            //ImGui.End();
+            ImGui.BeginChild("Scrolling");
+            for (int i = 0; i < ConsoleMessages.Count; i++)
+            {
+                ImGui.Text(ConsoleMessages[i]);
+            }
+            ImGui.EndChild();
+
+            ImGui.End();
         }
     }
 }

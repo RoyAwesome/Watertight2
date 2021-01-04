@@ -29,7 +29,7 @@ namespace Watertight.Modules
                 set;
             }
 
-            public IModule Module
+            public Module Module
             {
                 get;
                 internal set;
@@ -75,7 +75,7 @@ namespace Watertight.Modules
 
         
 
-        private void LoadModuleInPath(string ModulePath)
+        private void LoadModuleAtPath(string ModulePath)
         {
             ModuleLoadContext loadContext = new ModuleLoadContext(ModulePath);
             Assembly asm = null;
@@ -95,16 +95,23 @@ namespace Watertight.Modules
                 return;
             }
 
+            LoadModulesInAssembly(asm);
+        }
+
+        private void LoadModulesInAssembly(Assembly asm)
+        {
+            string ModulePath = new Uri(asm.CodeBase).AbsolutePath;
+
             foreach (Type t in asm.GetTypes())
             {
-                if (typeof(IModule).IsAssignableFrom(t) && !t.IsInterface)
+                if (typeof(Module).IsAssignableFrom(t) && !t.IsAbstract)
                 {
                     Logger.Info("Loading Module {0} from assembly {1}", t.Name, asm.FullName);
 
                     LoadedModule loadedModule = new LoadedModule
                     {
                         Assembly = asm,
-                        Path = ModulePath,                       
+                        Path = ModulePath,
                     };
 
                     Modules.Add(loadedModule);
@@ -122,9 +129,10 @@ namespace Watertight.Modules
 
                 foreach (Type t in asm.GetTypes())
                 {
-                    if (typeof(IModule).IsAssignableFrom(t) && !t.IsInterface)
+                    if (typeof(Module).IsAssignableFrom(t) && !t.IsAbstract)
                     {
-                        loadedModule.Module = Activator.CreateInstance(t) as IModule;
+                        loadedModule.Module = Activator.CreateInstance(t) as Module;
+                        loadedModule.Module.ModulePath = loadedModule.Path;
 
                         if (loadedModule.Module == null)
                         {
@@ -154,13 +162,16 @@ namespace Watertight.Modules
         {
             foreach (string ModuleDll in Directory.GetFiles(Folder, "*.dll"))
             {
-                LoadModuleInPath(ModuleDll);
+                LoadModuleAtPath(ModuleDll);
             }
         }
 
         public void LoadModules()
         {
             Logger.Info("Loading Modules");
+
+            LoadModulesInAssembly(Assembly.GetExecutingAssembly());
+
             foreach(string ModuleSubFolder in ModuleFolderPaths)
             {
                 string ModuleSource = Path.Combine(Directory.GetCurrentDirectory(), ModuleSubFolder);

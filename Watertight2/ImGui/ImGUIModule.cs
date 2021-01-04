@@ -15,10 +15,12 @@ using Watertight.Rendering.Interfaces;
 using Watertight.Rendering.Materials;
 using Watertight.Tickable;
 
-namespace Watertight.Middleware.DearImGUI
+namespace Watertight.DearImGUI
 {
-    class ImGUIModule : Module
+    public class ImGUIModule : Module
     {
+        public static int ImGUI_FrameStartTick = TickFunction.InputPoll + 0x000F;
+
         public override string ModuleName => "ImGUI";
 
         public override string ModuleVersion => "1.0.0.0";
@@ -52,7 +54,7 @@ namespace Watertight.Middleware.DearImGUI
 
             const float OrthoOffset = 0.0f;
 
-            public static int ImGUI_FrameStartTick = TickFunction.InputPoll + 0x000F;
+            
             TickFunction StartFrameTickFunc = new TickFunction
             {
                 CanTick = true,
@@ -134,10 +136,13 @@ namespace Watertight.Middleware.DearImGUI
                 io.KeyShift = InputProcessor.IsKeyDown(Key.LShiftKey) || InputProcessor.IsKeyDown(Key.RShiftKey);
                 io.KeyCtrl = InputProcessor.IsKeyDown(Key.LControlKey) || InputProcessor.IsKeyDown(Key.RControlKey);
                 io.KeyAlt = InputProcessor.IsKeyDown(Key.LAltKey) || InputProcessor.IsKeyDown(Key.RAltKey);
+                              
 
                 io.MouseDown[0] = InputProcessor.IsKeyDown(Key.LeftMouse);
                 io.MouseDown[1] = InputProcessor.IsKeyDown(Key.RightMouse);
                 io.MouseDown[2] = InputProcessor.IsKeyDown(Key.MiddleMouse);
+
+                io.MouseWheel = InputProcessor.PollAxis(Key.MouseWheel);
 
                 io.MousePos = new Vector2(InputProcessor.PollAxis(Key.MouseX), InputProcessor.PollAxis(Key.MouseY));
 

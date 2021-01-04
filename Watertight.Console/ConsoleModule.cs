@@ -1,24 +1,24 @@
 ﻿using System;
-using Watertight.Middleware.DearImGUI;
+using Watertight.DearImGUI;
 using Watertight.Modules;
 using Watertight.Tickable;
 
 namespace Watertight.Console
 {
-    public class WatertightConsoleModule : IModule
+    public class WatertightConsoleModule : Module
     {
-        public string ModuleName => "Console";
+        public override string ModuleName => "Console";
 
-        public string ModuleVersion => "1.0.0.0";
+        public override string ModuleVersion => "1.0.0.0";
 
         WatertightConsole Console = new WatertightConsole();
 
-        public void ShutdownModule()
+        public override void ShutdownModule()
         {
            
         }
 
-        public void StartupModule(StartupPhase Phase)
+        public override void StartupModule(StartupPhase Phase)
         {
            if(Phase == StartupPhase.PreEngineInit)
            {
@@ -26,7 +26,7 @@ namespace Watertight.Console
                 IEngine.Instance.GameThreadTickManager.AddTick(new Tickable.TickFunction
                 {
                     CanTick = true,
-                    TickPriority = ImGUIMiddleware.ImGUI_FrameStartTick - 1,
+                    TickPriority = ImGUIModule.ImGUI_FrameStartTick - 1,
                     TickFunc = Console.Tick
                 });
            }

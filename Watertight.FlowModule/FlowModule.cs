@@ -14,11 +14,11 @@ using Watertight.Tickable;
 
 namespace Watertight.FlowModule
 {
-    public class FlowModule : IModule
+    public class FlowModule : Module
     {
-        public string ModuleName => "Flow Module";
+        public override string ModuleName => "Flow Module";
 
-        public string ModuleVersion => "1.0.0.0";
+        public override string ModuleVersion => "1.0.0.0";
 
         public static int Flow_FrameStartTick = TickFunction.InputPoll + 0x000F;
         TickFunction StartFrameTickFunc = new TickFunction
@@ -29,13 +29,14 @@ namespace Watertight.FlowModule
 
         private FlowRenderable RenderObject;
 
-        public void ShutdownModule()
+        public override void ShutdownModule()
         {
             
         }
 
-        public void StartupModule(StartupPhase Phase)
+        public override void StartupModule(StartupPhase Phase)
         {
+            /*
            if(Phase == StartupPhase.EngineInit)
            {
                 RenderObject = new FlowRenderable();
@@ -48,7 +49,7 @@ namespace Watertight.FlowModule
                
                 RenderObject.PostRendererInit(IEngine.Instance.Renderer);
            }
-
+            */
         }
 
         class FlowRenderable : IRenderable, ITickable
@@ -79,7 +80,6 @@ namespace Watertight.FlowModule
             public void Tick(float DeltaTime)
             {
                 Flow.NewFrame();
-
                 Flow.TestDrawing();
             }
 

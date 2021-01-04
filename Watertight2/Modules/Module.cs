@@ -27,22 +27,28 @@ namespace Watertight.Modules
     };
 
 
-    public interface IModule
+    public abstract class Module
     {
-        public string ModuleName
+        public virtual string ModuleName
         {
             get;
         }
 
-        public string ModuleVersion
+        public virtual string ModuleVersion
         {
             get;
         }
 
         //TODO: Filesystem Information
 
-        public void StartupModule(StartupPhase Phase);
+        public string ModulePath
+        {
+            get;
+            internal set;
+        }
 
-        public void ShutdownModule();
+        public abstract void StartupModule(StartupPhase Phase);
+
+        public abstract void ShutdownModule();
     }
 }

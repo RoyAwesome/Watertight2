@@ -67,6 +67,12 @@ namespace Watertight.Rendering.VeldridRendering.Input
                 return lastInputSnapshot.MousePosition.Y;
             }
 
+            if(KeyName == WTKey.MouseWheel)
+            {
+                return lastInputSnapshot.WheelDelta;
+            }
+
+
             return 0;
           
         }

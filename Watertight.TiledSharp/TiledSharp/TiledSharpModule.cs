@@ -5,18 +5,18 @@ using Watertight.Modules;
 
 namespace TiledSharp
 {
-    class TiledSharpModule : IModule
+    class TiledSharpModule : Module
     {
-        public string ModuleName => "Tiled Sharp";
+        public override string ModuleName => "Tiled Sharp";
 
-        public string ModuleVersion => "1.0.0.0";
+        public override string ModuleVersion => "1.0.0.0";
 
-        public void ShutdownModule()
+        public override void ShutdownModule()
         {
            
         }
 
-        public void StartupModule(StartupPhase Phase)
+        public override void StartupModule(StartupPhase Phase)
         {
             
         }

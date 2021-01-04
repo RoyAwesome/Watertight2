@@ -38,13 +38,23 @@ namespace Watertight.Modules
             return null;
         }
 
+        Dictionary<string, IntPtr> LoadedNativeDLLs = new Dictionary<string, IntPtr>();
         
         protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
         {            
             string libPath = resolver.ResolveUnmanagedDllToPath(unmanagedDllName);
             if(libPath != null)
             {
-                return LoadUnmanagedDllFromPath(libPath);
+                if(LoadedNativeDLLs.ContainsKey(libPath))
+                {
+                    return LoadedNativeDLLs[libPath];
+                }
+                else
+                {
+                    IntPtr dll = LoadUnmanagedDllFromPath(libPath);
+                    LoadedNativeDLLs.Add(libPath, dll);
+                    return dll;
+                }
             }
 
             return IntPtr.Zero;
